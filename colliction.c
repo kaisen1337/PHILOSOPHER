@@ -1,3 +1,29 @@
+typedef struct s_data
+{
+	int				num_of_philo;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				must_eat_n;
+	int				all_ate;
+	int				stop;
+	long		start_time;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	check_mutex;
+	pthread_mutex_t	meal_mutex;
+}					t_data;
+
+typedef struct s_philo
+{
+	int				id;
+	int				is_eating;
+	int				meals_counter;
+	long long		time_of_last_meal;
+	pthread_t		thrd_id;
+	pthread_mutex_t	*left_f;
+	pthread_mutex_t	*right_f;
+	t_data			*data;
+}					t_philo;
 
 int	ft_initialize_data(t_data *data, char **av)
 {
@@ -186,7 +212,10 @@ long	time_in_mcrs(int time_in_ms)
 void	print_message(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->data->print_mutex);
-	ft_printf("%d %s\n", philo->id, str);
+	long current_time;
+	current_time = (get_current_time()) - philo->data->start_time;
+	ft_printf("%ld ", current_time);
+	ft_printf(" %d %s\n", philo->id, str);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 void	even_eating(t_philo *philo)
@@ -196,7 +225,7 @@ void	even_eating(t_philo *philo)
 	pthread_mutex_lock(philo->right_f);
 	print_message(philo, "hase taken  R fork");
 	print_message(philo, "is eating...");
-	usleep(philo->data->time_to_eat);
+	usleep(philo->data->time_to_eat * 1000);
 	philo->meals_counter++;
 	pthread_mutex_unlock(philo->left_f);
 	pthread_mutex_unlock(philo->right_f);
@@ -209,7 +238,7 @@ void	ode_eating(t_philo *philo)
 	print_message(philo, "hase taken  R fork");
 	print_message(philo, "hase taken  L fork");
 	print_message(philo, "is eating...");
-	usleep(philo->data->time_to_eat);
+	usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->right_f);
 	pthread_mutex_unlock(philo->left_f);
 	print_message(philo, "is sleeping...");
@@ -226,12 +255,6 @@ void	*day_of_philo(void *test)
 	t_philo	*philo;
 
 	philo = (t_philo *)test;
-	ft_printf("%d ", philo->data->start_time);
-	if (philo->id % 2 != 0)
-	{
-		// print_message(philo, "is sleeping😴");
-		sleep(1);
-	}
 	print_message(philo, "is thinking");
 	eat(philo);
 	return (NULL);
@@ -264,3 +287,4 @@ int	main(int ac, char **av)
 	ft_init(philo, &data, mutex, av);
 	return (0);
 }
+2 800 200 200 

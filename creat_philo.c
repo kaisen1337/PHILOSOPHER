@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:44:20 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/03/11 17:31:16 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/03/14 00:08:03 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_initialize_philo(t_philo *philo, t_data *data, pthread_mutex_t *mutex)
 		philo[i].id = i;
 		philo->is_eating = 0;
 		philo[i].meals_counter = 0;
-		philo[i].time_of_last_meal = 0;
+		philo[i].time_of_last_meal = get_current_time();
 		philo[i].data = data;
 		philo[i].left_f = &mutex[i];
 		philo[i].right_f = &mutex[(i + 1) % data->num_of_philo];

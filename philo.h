@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:04:51 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/03/11 15:11:37 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/03/12 23:06:09 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_data
 	int				must_eat_n;
 	int				all_ate;
 	int				stop;
-	long		start_time;
+	long			start_time;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	check_mutex;
 	pthread_mutex_t	meal_mutex;
@@ -40,7 +40,7 @@ typedef struct s_philo
 	int				id;
 	int				is_eating;
 	int				meals_counter;
-	long long		time_of_last_meal;
+	long			time_of_last_meal;
 	pthread_t		thrd_id;
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
