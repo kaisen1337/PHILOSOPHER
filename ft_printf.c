@@ -6,65 +6,66 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 20:50:29 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/03/11 15:10:49 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/03/19 16:28:45 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-void	ft_putstr(char *str, int *counter)
+void	ft_putstr(int fd, char *str, int *counter)
 {
 	if (!str)
 		str = "(null)";
 	while (*str)
 	{
-		ft_putchar(*str, counter);
+		ft_putchar(fd, *str, counter);
 		str++;
 	}
 }
 
-void	ft_putnbr(int nb, int *counter)
+void	ft_putnbr(int fd, int nb, int *counter)
 {
 	long	n;
 
 	n = nb;
 	if (n < 0)
 	{
-		ft_putchar('-', counter);
+		ft_putchar(fd, '-', counter);
 		n = -n;
 	}
 	if (n >= 10)
 	{
-		ft_putnbr(n / 10, counter);
+		ft_putnbr(fd, n / 10, counter);
 	}
-	ft_putchar(n % 10 + '0', counter);
-}
-void ft_putnbr_long(long nb, int *counter)
-{
-    if (nb < 0)
-    {
-        ft_putchar('-', counter);
-        nb = -nb;
-    }
-    if (nb >= 10)
-    {
-        ft_putnbr_long(nb / 10, counter);
-    }
-    ft_putchar(nb % 10 + '0', counter);
+	ft_putchar(fd, n % 10 + '0', counter);
 }
 
-void	format_specifier(va_list arguements, char specifier, int *counter)
+void	ft_putnbr_long(int fd, long nb, int *counter)
+{
+	if (nb < 0)
+	{
+		ft_putchar(fd, '-', counter);
+		nb = -nb;
+	}
+	if (nb >= 10)
+	{
+		ft_putnbr_long(fd, nb / 10, counter);
+	}
+	ft_putchar(fd, nb % 10 + '0', counter);
+}
+
+void	format_specifier(int fd, va_list arguements, char specifier,
+		int *counter)
 {
 	if (specifier == 'd' || specifier == 'i')
-		ft_putnbr(va_arg(arguements, int), counter);
+		ft_putnbr(fd, va_arg(arguements, int), counter);
 	else if (specifier == 's')
-		ft_putstr((char *)va_arg(arguements, char *), counter);
+		ft_putstr(fd, (char *)va_arg(arguements, char *), counter);
 	if (specifier == 'l')
-		ft_putnbr_long(va_arg(arguements, long), counter);	
+		ft_putnbr_long(fd, va_arg(arguements, long), counter);
 }
 
-int	ft_printf(const char *str, ...)
+int	ft_printf(int fd, const char *str, ...)
 {
 	va_list	arguements;
 	int		counter;
@@ -78,12 +79,12 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%')
 		{
 			i++;
-			format_specifier(arguements, str[i], &counter);
-			if(str[i] == 'l' && str[i + 1] == 'd')
+			format_specifier(fd, arguements, str[i], &counter);
+			if (str[i] == 'l' && str[i + 1] == 'd')
 				i++;
 		}
 		else
-			ft_putchar(str[i], &counter);
+			ft_putchar(fd, str[i], &counter);
 		i++;
 	}
 	va_end(arguements);

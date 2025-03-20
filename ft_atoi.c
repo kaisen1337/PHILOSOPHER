@@ -6,15 +6,15 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:03:31 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/03/11 15:11:06 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/03/19 16:47:34 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_putchar(char c, int *counter)
+void	ft_putchar(int fd, char c, int *counter)
 {
-	write(1, &c, 1);
+	write(fd, &c, 1);
 	(*counter)++;
 }
 
