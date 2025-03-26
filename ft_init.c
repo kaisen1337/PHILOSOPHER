@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:44:20 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/03/20 13:02:25 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/03/21 14:49:10 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *mutex)
 		if (pthread_create(&philo[i].thrd_id, NULL, day_of_philo,
 				&philo[i]) != 0)
 			return ((ft_printf(2, "pthread_creat failed\n"), 0));
+		// usleep(100);
 		i++;
 	}
 	return (1);
@@ -80,17 +81,12 @@ int	ft_init_mutex(t_data *data, pthread_mutex_t *mutex)
 	return (1);
 }
 
-int 	ft_init(t_philo *philo, t_data *data, pthread_mutex_t *mutex, char **av)
+int 	ft_init(t_data *data, pthread_mutex_t *mutex, char **av)
 {
 	if(!ft_init_data(data, av))
 		return 0;
 	if(!ft_init_mutex(data, mutex))
 		return 0;
-	if(!ft_init_philo(philo, data, mutex))
-		return 0;
-	if(!ft_wait(philo, data))
-		return 0;
-	ft_free(&philo, &mutex);
 	return 1;
 }
 

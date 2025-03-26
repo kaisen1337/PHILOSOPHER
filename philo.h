@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:04:51 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/03/20 12:37:39 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/03/20 16:39:26 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+
+typedef struct s_philo t_philo;
+
 typedef struct s_data
 {
 	int				num_of_philo;
@@ -32,6 +35,7 @@ typedef struct s_data
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	check_mutex;
 	pthread_mutex_t	meal_mutex;
+	t_philo *philo;
 	int				stop;
 }					t_data;
 
@@ -68,7 +72,7 @@ void	*day_of_philo(void *test);
 int	ft_init_data(t_data *data, char **av);
 int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *mutex);
 int ft_init_mutex(t_data *data, pthread_mutex_t *mutex);
-int 	ft_init(t_philo *philo, t_data *data, pthread_mutex_t *mutex, char **av);
+int 	ft_init(t_data *data, pthread_mutex_t *mutex, char **av);
 int	ft_wait(t_philo *philo, t_data *data);
 /*********************************************/
 int	check_if_alive(t_philo *philo);
