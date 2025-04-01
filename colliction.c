@@ -69,15 +69,15 @@
 // int 	ft_init(t_philo *philo, t_data *data, pthread_mutex_t *mutex, char **av)
 // {
 // 	if(!ft_init_data(data, av))
-// 		return 0;
+// 		return (0);
 // 	if(!ft_init_mutex(data, mutex))
-// 		return 0;
+// 		return (0);
 // 	if(!ft_init_philo(philo, data, mutex))
-// 		return 0;
+// 		return (0);
 // 	if(!ft_wait(philo, data))
-// 		return 0;
+// 		return (0);
 // 	ft_free(&philo, &mutex);
-// 	return 1;
+// 	return (1);
 // }
 
 // int	ft_wait(t_philo *philo, t_data *data)

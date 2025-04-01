@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:44:20 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/03/21 14:49:10 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/01 11:26:50 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *mutex)
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		philo[i].id = i;
+		philo[i].id = i+1;
 		philo[i].is_eating = 0;
 		philo[i].meals_counter = 0;
 		philo[i].time_of_last_meal = get_current_time();
@@ -58,7 +58,6 @@ int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *mutex)
 		if (pthread_create(&philo[i].thrd_id, NULL, day_of_philo,
 				&philo[i]) != 0)
 			return ((ft_printf(2, "pthread_creat failed\n"), 0));
-		// usleep(100);
 		i++;
 	}
 	return (1);
@@ -81,13 +80,13 @@ int	ft_init_mutex(t_data *data, pthread_mutex_t *mutex)
 	return (1);
 }
 
-int 	ft_init(t_data *data, pthread_mutex_t *mutex, char **av)
+int	ft_init(t_data *data, pthread_mutex_t *mutex, char **av)
 {
-	if(!ft_init_data(data, av))
-		return 0;
-	if(!ft_init_mutex(data, mutex))
-		return 0;
-	return 1;
+	if (!ft_init_data(data, av))
+		return (0);
+	if (!ft_init_mutex(data, mutex))
+		return (0);
+	return (1);
 }
 
 int	ft_wait(t_philo *philo, t_data *data)
