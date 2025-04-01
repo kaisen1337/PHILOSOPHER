@@ -13,14 +13,15 @@
 
 #include "philo.h"
 
-void	print_message(int fd, t_philo *philo, char *str)
+void print_message(t_philo *philo, char *str)
 {
-	long	current_time;
+    long current_time;
 
-	current_time = 0;
-	pthread_mutex_lock(&philo->data->print_mutex);
-	current_time = (get_current_time()) - philo->data->start_time;
-	ft_printf(fd, "%ld ", current_time);
-	ft_printf(fd, " %d %s\n", philo->id, str);
-	pthread_mutex_unlock(&philo->data->print_mutex);
+    pthread_mutex_lock(&philo->data->print_mutex);
+	if(!philo->data->stop)
+	{
+	    current_time = (get_current_time()) - philo->data->start_time;
+ 		printf("%ld  %d %s\n", current_time, philo->id, str);
+	}
+    pthread_mutex_unlock(&philo->data->print_mutex);
 }

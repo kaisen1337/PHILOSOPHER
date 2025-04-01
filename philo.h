@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:04:51 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/03/20 16:39:26 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/01 15:02:39 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ long	time_in_mcrs(int time_in_ms);
 long	get_current_time(void);
 
 /*********************************************/
-void	print_message(int fd, t_philo *philo, char *str);
+void	print_message(t_philo *philo, char *str);
 void	eat(t_philo *philo);
 void	*day_of_philo(void *test);
 /*********************************************/
