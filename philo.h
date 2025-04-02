@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:04:51 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/01 15:02:39 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/02 23:05:39 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ typedef struct s_data
 	pthread_mutex_t	meal_mutex;
 	t_philo *philo;
 	int				stop;
+	int delay;
+	// int st;
 }					t_data;
 
 typedef struct s_philo
 {
-	int				is_eating;
 	int				meals_counter;
 	long			time_of_last_meal;
 	pthread_t		thrd_id;
@@ -76,5 +77,7 @@ int 	ft_init(t_data *data, pthread_mutex_t *mutex, char **av);
 int	ft_wait(t_philo *philo, t_data *data);
 /*********************************************/
 int	check_if_alive(t_philo *philo);
+int check_meals(t_data *data);
+
 /*********************************************/
 #endif

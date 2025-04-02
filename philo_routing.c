@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 11:35:34 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/01 18:38:10 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/02 23:10:21 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,12 @@ void even_eating(t_philo *philo)
     print_message(philo, "has taken a fork");
     
     pthread_mutex_lock(&philo->data->meal_mutex);
-    philo->is_eating = 1;
     philo->meals_counter++;
     philo->time_of_last_meal = get_current_time();
     pthread_mutex_unlock(&philo->data->meal_mutex);
     
     print_message(philo, "is eating");
     usleep(philo->data->time_to_eat * 1000);
-    
-    pthread_mutex_lock(&philo->data->meal_mutex);
-    philo->is_eating = 0;
-    pthread_mutex_unlock(&philo->data->meal_mutex);
     
     pthread_mutex_unlock(philo->left_f);
     pthread_mutex_unlock(philo->right_f);
@@ -44,17 +39,12 @@ void ode_eating(t_philo *philo)
     print_message(philo, "has taken a fork");
     
     pthread_mutex_lock(&philo->data->meal_mutex);
-    philo->is_eating = 1;
     philo->meals_counter++;
     philo->time_of_last_meal = get_current_time();
     pthread_mutex_unlock(&philo->data->meal_mutex);
     
     print_message(philo, "is eating");
     usleep(philo->data->time_to_eat * 1000);
-    
-    pthread_mutex_lock(&philo->data->meal_mutex);
-    philo->is_eating = 0;
-    pthread_mutex_unlock(&philo->data->meal_mutex);
     
     pthread_mutex_unlock(philo->right_f);
     pthread_mutex_unlock(philo->left_f);
