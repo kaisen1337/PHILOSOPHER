@@ -6,11 +6,13 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:20:38 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/01 21:19:07 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/02 11:41:45 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int all_ate =0;
 int	check_death(t_data *data)
 {
 	t_philo	*philos = data->philo;
@@ -19,13 +21,20 @@ int	check_death(t_data *data)
 	i = 0;
 	while (i < data->num_of_philo)
 	{
+		// if(philos[i].is_eating)
+		// {
+		// 	return 0;
+		// }
 		pthread_mutex_lock(&data->meal_mutex);
-		if ((get_current_time() - philos[i].time_of_last_meal) > data->time_to_die)
+		long a = (get_current_time() - philos[i].time_of_last_meal) ;
+		a = a -1;
+		if (a > data->time_to_die &&  philos[i].is_eating)
 		{
 			pthread_mutex_unlock(&data->meal_mutex);
 			pthread_mutex_lock(&data->print_mutex);
-			ft_printf(1, "%ld %d died\n", get_current_time() - data->start_time, philos[i].id);
 			data->stop = 1;
+			usleep(9000);
+			ft_printf(1, "%ld %d died\n", get_current_time() - data->start_time, philos[i].id);
 			pthread_mutex_unlock(&data->print_mutex);
 			return (1);
 		}
@@ -58,6 +67,7 @@ int	check_meals(t_data *data)
 		pthread_mutex_unlock(&data->print_mutex);
 		return (1);
 	}
+	all_ate = full;
 	return (0);
 }
 
@@ -71,6 +81,7 @@ void	*ft_manager(void *arg)
 			break;
 		usleep(1000);
 	}
+		printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ %d ate\n", all_ate);
 	return (NULL);
 }
 
