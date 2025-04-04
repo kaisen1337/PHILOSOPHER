@@ -51,7 +51,6 @@ int	check_error(int ac, char **av, int *number)
 		i++;
 	}
 	*number = ft_atoi(av[1]);
-	
 	if (*number > 200)
 		return ((ft_printf(2,
 					"Eroor\nthe number of the philosophers must be less than 200\n",

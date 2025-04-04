@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:44:20 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/02 23:05:58 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/04 19:04:06 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	ft_init_data(t_data *data, char **av)
 		data->must_eat_n = -1;
 	data->all_ate = 0;
 	data->stop = 0;
-	data->delay = 0;
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
 		return (0);
 	if (pthread_mutex_init(&data->check_mutex, NULL) != 0)
@@ -48,7 +47,7 @@ int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *mutex)
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		philo[i].id = i+1;
+		philo[i].id = i;
 		philo[i].meals_counter = 0;
 		philo[i].time_of_last_meal = get_current_time();
 		philo[i].data = data;
