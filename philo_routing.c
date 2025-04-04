@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 11:35:34 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/04 19:29:38 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/04 22:19:58 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	eat(t_philo *philo)
 		usleep(philo->data->time_to_die * 1000);
 		pthread_mutex_unlock(philo->left_f);
 	}
-	if (philo->data->time_to_die < (philo->data->time_to_eat
-			+ philo->data->time_to_sleep) * 2 && philo->data->num_of_philo
-		% 2 != 0)
-		usleep(philo->data->time_to_die * 1000);
+	// if (philo->data->time_to_die < (philo->data->time_to_eat
+	// 		+ philo->data->time_to_sleep) * 2 && philo->data->num_of_philo
+	// 	% 2 != 0)
+		// usleep(philo->data->time_to_die * 1000);
 	else if (philo->id % 2 == 0)
 		even_eating(philo);
 	else

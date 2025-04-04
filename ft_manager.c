@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:54:06 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/04 19:36:07 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/04 22:19:36 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ int	check_death(t_data *data)
 		pthread_mutex_unlock(&data->meal_mutex);
 		if (time_since_last_meal > data->time_to_die)
 		{
-			// printf("################################ %ld\n",
-			// time_since_last_meal);
-			// Hold the meal_mutex until we've finished setting the stop flag
-			// and printing the death message to prevent race conditions
 			pthread_mutex_lock(&data->check_mutex);
 			data->stop = 1;
 			pthread_mutex_unlock(&data->check_mutex);

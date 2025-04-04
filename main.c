@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:20:38 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/04 19:17:51 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/04 22:20:12 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*day_of_philo(void *arg)
 	int		should_exit;
 
 	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 0 && philo->data->num_of_philo != 1)
 	{
 		print_message(philo, "is thinking");
 		usleep(philo->data->time_to_eat * 1000);
