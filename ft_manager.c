@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:54:06 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/04 22:19:36 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/04 22:52:21 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_death(t_data *data)
 {
 	t_philo	*philos;
-	long	time_since_last_meal;
+	double	time_since_last_meal;
 	int		i;
 
 	philos = data->philo;
@@ -26,13 +26,14 @@ int	check_death(t_data *data)
 		time_since_last_meal = (get_current_time()
 				- philos[i].time_of_last_meal);
 		pthread_mutex_unlock(&data->meal_mutex);
-		if (time_since_last_meal > data->time_to_die)
+		if (time_since_last_meal >(double) data->time_to_die)
 		{
+		printf("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55 %f\n", time_since_last_meal);
 			pthread_mutex_lock(&data->check_mutex);
 			data->stop = 1;
 			pthread_mutex_unlock(&data->check_mutex);
 			pthread_mutex_lock(&data->print_mutex);
-			printf("%ld %d died\n", get_current_time() - data->start_time,
+			printf("%ld %d died\n", (long)(get_current_time() - data->start_time),
 				(philos[i].id + 1));
 			pthread_mutex_unlock(&data->print_mutex);
 			return (1);
@@ -65,7 +66,7 @@ int	check_meals(t_data *data)
 		data->stop = 1;
 		pthread_mutex_unlock(&data->check_mutex);
 		pthread_mutex_lock(&data->print_mutex);
-		printf("%ld All philosophers have eaten enough\n", get_current_time()
+		printf("%f All philosophers have eaten enough\n", get_current_time()
 			- data->start_time);
 		pthread_mutex_unlock(&data->print_mutex);
 		return (1);

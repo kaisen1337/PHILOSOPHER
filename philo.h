@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:04:51 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/04 22:16:39 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/04 22:26:54 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				must_eat_n;
 	int				all_ate;
-	long			start_time;
+	double			start_time;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	check_mutex;
 	pthread_mutex_t	meal_mutex;
@@ -43,7 +43,7 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int				meals_counter;
-	long			time_of_last_meal;
+	double			time_of_last_meal;
 	pthread_t		thrd_id;
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
@@ -61,8 +61,8 @@ int					check_error(int ac, char **av, int *number);
 int ft_allocate(t_philo **philo, pthread_mutex_t **mutex, int number);
 void    ft_free(t_philo **philo, pthread_mutex_t **mutex);
 /*********************************************/
-long	time_in_mcrs(int time_in_ms);
-long	get_current_time(void);
+double	time_in_mcrs(int time_in_ms);
+double	get_current_time(void);
 
 /*********************************************/
 void	print_message(t_philo *philo, char *str);

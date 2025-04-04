@@ -15,7 +15,7 @@
 
 void	print_message(t_philo *philo, char *str)
 {
-	long	current_time;
+	double	current_time;
 	int		should_print;
 
 	pthread_mutex_lock(&philo->data->check_mutex);
@@ -24,7 +24,7 @@ void	print_message(t_philo *philo, char *str)
 	{
 		pthread_mutex_lock(&philo->data->print_mutex);
 		current_time = (get_current_time()) - philo->data->start_time;
-		printf("%ld  %d %s\n", current_time, (philo->id + 1), str);
+		printf("%ld  %d %s\n", (long)(current_time), (philo->id + 1), str);
 		pthread_mutex_unlock(&philo->data->print_mutex);
 	}
 	pthread_mutex_unlock(&philo->data->check_mutex);
