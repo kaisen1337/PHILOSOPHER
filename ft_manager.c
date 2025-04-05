@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:54:06 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/04 22:52:21 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/05 17:38:46 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_death(t_data *data)
 		pthread_mutex_unlock(&data->meal_mutex);
 		if (time_since_last_meal >(double) data->time_to_die)
 		{
-		printf("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55 %f\n", time_since_last_meal);
+		// printf("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55 %f\n", time_since_last_meal);
 			pthread_mutex_lock(&data->check_mutex);
 			data->stop = 1;
 			pthread_mutex_unlock(&data->check_mutex);
@@ -80,12 +80,12 @@ void	*ft_manager(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
-	// int should_continue ;
 	while (1)
 	{
+		
 		if (check_death(data) || check_meals(data))
 			break ;
-		usleep(100);
+		usleep(1000);
 	}
 	return (NULL);
 }
