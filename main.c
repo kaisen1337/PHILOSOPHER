@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:20:38 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/05 17:54:56 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/06 18:13:07 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,13 @@ void	*day_of_philo(void *arg)
 		eat(philo);
 		print_message(philo, "is sleeping");
 		usleep(philo->data->time_to_sleep * 1000);
-		if(philo->data->num_of_philo % 2 != 0)
-		{
-		print_message(philo, "hohohohohohohohohohohohohohohoho\n");
+		if (philo->data->num_of_philo % 2 != 0)
 			usleep(1000);
-		}
 		print_message(philo, "is thinking");
 	}
 	return (NULL);
 }
+
 int	main(int ac, char **av)
 {
 	int				number_of_philo;

@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:44:20 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/04 19:04:06 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/06 17:24:35 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *mutex)
 	}
 	return (1);
 }
+
 int	ft_init_mutex(t_data *data, pthread_mutex_t *mutex)
 {
 	int	i;

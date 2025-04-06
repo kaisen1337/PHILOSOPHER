@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:38:21 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/02 17:02:25 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/06 17:21:05 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ int	check_error(int ac, char **av, int *number)
 	}
 	*number = ft_atoi(av[1]);
 	if (*number > 200)
-		return ((ft_printf(2,
-					"Eroor\nthe number of the philosophers must be less than 200\n",
-					i), 0));
+	{
+		ft_printf(2,
+			"Eroor\nthe number of the philosophers must be less than 200\n", i);
+		return (0);
+	}
 	return (1);
 }

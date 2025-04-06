@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:03:31 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/03/19 16:47:34 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/04/06 17:22:47 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	ft_putchar(int fd, char c, int *counter)
 
 int	ft_atoi(const char *nptr)
 {
-	long result;
-	int sign;
-	size_t i;
+	long	result;
+	int		sign;
+	size_t	i;
 
 	i = 0;
 	sign = 1;
