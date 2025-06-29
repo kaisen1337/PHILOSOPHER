@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisen1337 <kaisen1337@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:20:38 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/06/28 06:45:44 by kaisen1337       ###   ########.fr       */
+/*   Updated: 2025/06/29 08:48:12 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int ac, char **av)
 	lock = NULL;
 	if (!check_error(ac, av, &number_of_philo))
 		return (1);
-	if (!ft_allocate(&philo, &lock, (number_of_philo + 1)))
+	if (!ft_allocate(&philo, &lock, number_of_philo))
 		return (1);
 	if (!ft_init(&data, lock, av))
 		return (1);
