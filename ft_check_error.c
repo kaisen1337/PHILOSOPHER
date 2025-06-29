@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_error.c                                      :+:      :+:    :+:   */
+/*   ft_check_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaisen1337 <kaisen1337@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:38:21 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/06 17:21:05 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/06/28 06:47:41 by kaisen1337       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_isdigit(char *str)
+int	is_arithmetic_symbol(char c)
+{
+	return (c == '+' || c == '-');
+}
+
+int	is_all_digit(char *str)
 {
 	int	i;
 
@@ -21,12 +26,9 @@ int	ft_isdigit(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (!(str[i] >= '0' && str[i] <= '9') && !(str[i] == '+'))
-		{
+		if (!ft_isdigit(str[i]) && !is_arithmetic_symbol(str[i]))
 			return (0);
-		}
-		if ((str[i] == '+') && (str[i - 1] >= '0' && str[i - 1] <= '9')
-			&& i > 0)
+		if (is_arithmetic_symbol(str[i]) && !ft_isdigit(str[i + 1]))
 			return (0);
 		i++;
 	}
@@ -42,11 +44,12 @@ int	check_error(int ac, char **av, int *number)
 		return ((ft_printf(2, "Eroor \nthe arguements must be 5 or 6 \n"), 0));
 	while (av[i])
 	{
-		if (ft_isdigit(av[i]) == 0)
+		if (!is_all_digit(av[i]))
 			return ((ft_printf(2, "Eroor \nthe arg %d is not a valid number \n",
 						i), 0));
 		if (ft_atoi(av[i]) <= 0)
-			return ((ft_printf(2, "Eroor \nthe arg %d must not be 0 \n", i),
+			return ((ft_printf(2,
+						"Eroor \nthe arg%d must not be negative or eq 0 \n", i),
 					0));
 		i++;
 	}

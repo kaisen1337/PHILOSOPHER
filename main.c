@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaisen1337 <kaisen1337@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:20:38 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/06 18:13:07 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/06/28 06:45:44 by kaisen1337       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	*day_of_philo(void *arg)
 	}
 	while (1)
 	{
-		pthread_mutex_lock(&philo->data->check_mutex);
+		pthread_mutex_lock(&philo->data->check_lock);
 		should_exit = philo->data->stop;
-		pthread_mutex_unlock(&philo->data->check_mutex);
+		pthread_mutex_unlock(&philo->data->check_lock);
 		if (should_exit)
 			break ;
 		eat(philo);
@@ -44,27 +44,27 @@ int	main(int ac, char **av)
 {
 	int				number_of_philo;
 	t_philo			*philo;
-	pthread_mutex_t	*mutex;
+	pthread_mutex_t	*lock;
 	t_data			data;
 	pthread_t		manager_id;
 
 	philo = NULL;
-	mutex = NULL;
+	lock = NULL;
 	if (!check_error(ac, av, &number_of_philo))
 		return (1);
-	if (!ft_allocate(&philo, &mutex, number_of_philo))
+	if (!ft_allocate(&philo, &lock, (number_of_philo + 1)))
 		return (1);
-	if (!ft_init(&data, mutex, av))
+	if (!ft_init(&data, lock, av))
 		return (1);
 	data.philo = philo;
 	data.start_time = get_current_time();
-	if (!ft_init_philo(philo, &data, mutex))
+	if (!ft_init_philo(philo, &data, lock))
 		return (1);
 	if (pthread_create(&manager_id, NULL, ft_manager, &data) != 0)
 		return (ft_printf(2, "pthread_create failed for monitor\n"), 1);
 	if (!ft_wait(philo, &data))
 		return (1);
 	pthread_join(manager_id, NULL);
-	ft_free(&philo, &mutex);
+	ft_free(&philo, &lock);
 	return (0);
 }

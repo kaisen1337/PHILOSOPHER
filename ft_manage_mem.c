@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   allocate_mem.c                                     :+:      :+:    :+:   */
+/*   ft_manage_mem.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaisen1337 <kaisen1337@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:58:40 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/02 17:01:05 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/06/28 05:26:41 by kaisen1337       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_allocate(t_philo **philo, pthread_mutex_t **mutex, int number)
+int	ft_allocate(t_philo **philo, pthread_mutex_t **lock, int number)
 {
 	*philo = malloc(number * sizeof(t_philo));
 	if (!(*philo))
 		return ((ft_printf(2, "Failed to allocate memory for philosophers\n"),
 				0));
-	*mutex = malloc(number * sizeof(pthread_mutex_t));
-	if (!(*mutex))
+	*lock = malloc(number * sizeof(pthread_mutex_t));
+	if (!(*lock))
 	{
 		if (*philo)
 		{
@@ -31,16 +31,16 @@ int	ft_allocate(t_philo **philo, pthread_mutex_t **mutex, int number)
 	return (1);
 }
 
-void	ft_free(t_philo **philo, pthread_mutex_t **mutex)
+void	ft_free(t_philo **philo, pthread_mutex_t **lock)
 {
 	if (*philo)
 	{
 		free(*philo);
 		*philo = NULL;
 	}
-	if (*mutex)
+	if (*lock)
 	{
-		free(*mutex);
-		*mutex = NULL;
+		free(*lock);
+		*lock = NULL;
 	}
 }

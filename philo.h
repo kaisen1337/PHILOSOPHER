@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaisen1337 <kaisen1337@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:04:51 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/06 17:55:35 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/06/28 06:45:27 by kaisen1337       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ typedef struct s_data
 	int					must_eat_n;
 	int					all_ate;
 	double				start_time;
-	pthread_mutex_t		print_mutex;
-	pthread_mutex_t		check_mutex;
+	pthread_mutex_t		print_lock;
+	pthread_mutex_t		check_lock;
 	pthread_mutex_t		meal_mutex;
 	t_philo				*philo;
 	int					stop;
-	// int st;
 }						t_data;
 
 typedef struct s_philo
@@ -78,4 +77,5 @@ int						check_meals(t_data *data);
 int						check_death(t_data *data);
 void					*ft_manager(void *arg);
 void					*day_of_philo(void *arg);
+int						ft_isdigit(int c);
 #endif

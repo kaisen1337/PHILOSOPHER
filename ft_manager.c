@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:54:06 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/06 17:38:16 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/06/29 08:24:42 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	check_death(t_data *data)
 		pthread_mutex_unlock(&data->meal_mutex);
 		if (df > (double)data->time_to_die)
 		{
-			pthread_mutex_lock(&data->check_mutex);
+			pthread_mutex_lock(&data->check_lock);
 			data->stop = 1;
-			pthread_mutex_unlock(&data->check_mutex);
-			pthread_mutex_lock(&data->print_mutex);
+			pthread_mutex_unlock(&data->check_lock);
+			pthread_mutex_lock(&data->print_lock);
 			printf("%ld %d died\n", (long)(get_current_time()
 					- data->start_time), (philos[i].id + 1));
-			pthread_mutex_unlock(&data->print_mutex);
+			pthread_mutex_unlock(&data->print_lock);
 			return (1);
 		}
 		i++;
@@ -41,30 +41,36 @@ int	check_death(t_data *data)
 	return (0);
 }
 
+void	check_meals_helper(t_data *data)
+{
+	pthread_mutex_lock(&data->check_lock);
+	data->stop = 1;
+	pthread_mutex_unlock(&data->check_lock);
+	pthread_mutex_lock(&data->print_lock);
+	printf("All philosophers have eaten %d time\n", data->must_eat_n);
+	pthread_mutex_unlock(&data->print_lock);
+}
+
 int	check_meals(t_data *data)
 {
 	t_philo	*philos;
 	int		i;
+	int		flag;
 
+	flag = 0;
 	philos = data->philo;
 	i = 0;
 	while (i < data->num_of_philo)
 	{
 		pthread_mutex_lock(&data->meal_mutex);
 		if (data->must_eat_n > 0 && philos[i].meals_counter >= data->must_eat_n)
-			philos->data->all_ate++;
+			flag++;
 		pthread_mutex_unlock(&data->meal_mutex);
 		i++;
 	}
-	if (data->must_eat_n > 0 && philos->data->all_ate == data->num_of_philo)
+	if (data->must_eat_n > 0 && flag == data->num_of_philo)
 	{
-		pthread_mutex_lock(&data->check_mutex);
-		data->stop = 1;
-		pthread_mutex_unlock(&data->check_mutex);
-		pthread_mutex_lock(&data->print_mutex);
-		printf("%f All philosophers have eaten enough\n", get_current_time()
-			- data->start_time);
-		pthread_mutex_unlock(&data->print_mutex);
+		check_meals_helper(data);
 		return (1);
 	}
 	return (0);
@@ -97,9 +103,9 @@ void	*ft_manager(void *arg)
 //     }
 //     while (1)
 //     {
-//         pthread_mutex_lock(&philo->data->check_mutex);
+//         pthread_mutex_lock(&philo->data->check_lock);
 //         should_exit = philo->data->stop;
-//         pthread_mutex_unlock(&philo->data->check_mutex);
+//         pthread_mutex_unlock(&philo->data->check_lock);
 //         if (should_exit)
 //             break ;
 //         eat(philo);

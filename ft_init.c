@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaisen1337 <kaisen1337@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:44:20 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/04/06 17:24:35 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/06/28 06:46:53 by kaisen1337       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,23 @@ int	ft_init_data(t_data *data, char **av)
 		data->must_eat_n = -1;
 	data->all_ate = 0;
 	data->stop = 0;
-	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
+	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
 		return (0);
-	if (pthread_mutex_init(&data->check_mutex, NULL) != 0)
+	if (pthread_mutex_init(&data->check_lock, NULL) != 0)
 	{
-		pthread_mutex_destroy(&data->print_mutex);
+		pthread_mutex_destroy(&data->print_lock);
 		return (0);
 	}
 	if (pthread_mutex_init(&data->meal_mutex, NULL) != 0)
 	{
-		pthread_mutex_destroy(&data->print_mutex);
-		pthread_mutex_destroy(&data->check_mutex);
+		pthread_mutex_destroy(&data->print_lock);
+		pthread_mutex_destroy(&data->check_lock);
 		return (0);
 	}
 	return (1);
 }
 
-int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *mutex)
+int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *lock)
 {
 	int	i;
 
@@ -51,8 +51,8 @@ int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *mutex)
 		philo[i].meals_counter = 0;
 		philo[i].time_of_last_meal = get_current_time();
 		philo[i].data = data;
-		philo[i].left_f = &mutex[i];
-		philo[i].right_f = &mutex[(i + 1) % data->num_of_philo];
+		philo[i].left_f = &lock[i];
+		philo[i].right_f = &lock[(i + 1) % data->num_of_philo];
 		if (pthread_create(&philo[i].thrd_id, NULL, day_of_philo,
 				&philo[i]) != 0)
 			return ((ft_printf(2, "pthread_creat failed\n"), 0));
@@ -61,17 +61,17 @@ int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *mutex)
 	return (1);
 }
 
-int	ft_init_mutex(t_data *data, pthread_mutex_t *mutex)
+int	ft_init_mutex(t_data *data, pthread_mutex_t *lock)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		if (pthread_mutex_init(&mutex[i], NULL) != 0)
+		if (pthread_mutex_init(&lock[i], NULL) != 0)
 		{
 			while (i--)
-				pthread_mutex_destroy(&mutex[i]);
+				pthread_mutex_destroy(&lock[i]);
 			return (0);
 		}
 		i++;
@@ -79,11 +79,11 @@ int	ft_init_mutex(t_data *data, pthread_mutex_t *mutex)
 	return (1);
 }
 
-int	ft_init(t_data *data, pthread_mutex_t *mutex, char **av)
+int	ft_init(t_data *data, pthread_mutex_t *lock, char **av)
 {
 	if (!ft_init_data(data, av))
 		return (0);
-	if (!ft_init_mutex(data, mutex))
+	if (!ft_init_mutex(data, lock))
 		return (0);
 	return (1);
 }
