@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:54:06 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/06/29 08:49:07 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/07/02 08:23:23 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	check_death(t_data *data)
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		pthread_mutex_lock(&data->meal_mutex);
+		pthread_mutex_lock(&data->meal_lock);
 		df = (get_current_time() - philos[i].time_of_last_meal);
-		pthread_mutex_unlock(&data->meal_mutex);
+		pthread_mutex_unlock(&data->meal_lock);
 		if (df > (double)data->time_to_die)
 		{
 			pthread_mutex_lock(&data->check_lock);
@@ -62,10 +62,10 @@ int	check_meals(t_data *data)
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		pthread_mutex_lock(&data->meal_mutex);
+		pthread_mutex_lock(&data->meal_lock);
 		if (data->must_eat_n > 0 && philos[i].meals_counter >= data->must_eat_n)
 			flag++;
-		pthread_mutex_unlock(&data->meal_mutex);
+		pthread_mutex_unlock(&data->meal_lock);
 		i++;
 	}
 	if (data->must_eat_n > 0 && flag == data->num_of_philo)
@@ -90,4 +90,3 @@ void	*ft_manager(void *arg)
 	}
 	return (NULL);
 }
-

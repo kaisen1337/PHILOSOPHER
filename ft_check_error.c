@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisen1337 <kaisen1337@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 23:38:21 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/06/28 06:47:41 by kaisen1337       ###   ########.fr       */
+/*   Updated: 2025/07/02 08:24:59by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	is_arithmetic_symbol(char c)
+int	is_arithmetic_operator(char c)
 {
 	return (c == '+' || c == '-');
 }
@@ -26,9 +26,9 @@ int	is_all_digit(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && !is_arithmetic_symbol(str[i]))
+		if (!ft_isdigit(str[i]) && !is_arithmetic_operator(str[i]))
 			return (0);
-		if (is_arithmetic_symbol(str[i]) && !ft_isdigit(str[i + 1]))
+		if (is_arithmetic_operator(str[i]) && i != 0)
 			return (0);
 		i++;
 	}

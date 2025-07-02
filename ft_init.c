@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisen1337 <kaisen1337@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:44:20 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/06/28 06:46:53 by kaisen1337       ###   ########.fr       */
+/*   Updated: 2025/07/02 08:23:23 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_init_data(t_data *data, char **av)
 		data->must_eat_n = ft_atoi(av[5]);
 	else
 		data->must_eat_n = -1;
-	data->all_ate = 0;
 	data->stop = 0;
 	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
 		return (0);
@@ -31,7 +30,7 @@ int	ft_init_data(t_data *data, char **av)
 		pthread_mutex_destroy(&data->print_lock);
 		return (0);
 	}
-	if (pthread_mutex_init(&data->meal_mutex, NULL) != 0)
+	if (pthread_mutex_init(&data->meal_lock, NULL) != 0)
 	{
 		pthread_mutex_destroy(&data->print_lock);
 		pthread_mutex_destroy(&data->check_lock);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisen1337 <kaisen1337@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:04:51 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/06/28 06:45:27 by kaisen1337       ###   ########.fr       */
+/*   Updated: 2025/07/02 08:23:23 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ typedef struct s_data
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					must_eat_n;
-	int					all_ate;
 	double				start_time;
 	pthread_mutex_t		print_lock;
 	pthread_mutex_t		check_lock;
-	pthread_mutex_t		meal_mutex;
+	pthread_mutex_t		meal_lock;
 	t_philo				*philo;
 	int					stop;
 }						t_data;
