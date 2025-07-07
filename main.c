@@ -55,13 +55,26 @@ int	main(int ac, char **av)
 	if (!ft_allocate(&philo, &lock, number_of_philo))
 		return (1);
 	if (!ft_init(&data, lock, av))
+	{
+		ft_free(&philo, &lock);
 		return (1);
+	}
 	data.philo = philo;
 	data.start_time = get_current_time();
 	if (!ft_init_philo(philo, &data, lock))
+	{
+		ft_free(&philo, &lock);
 		return (1);
+	}
 	if (pthread_create(&manager_id, NULL, ft_manager, &data) != 0)
+	{
+		pthread_mutex_lock(&data.check_lock);
+		data.stop = 1;
+		pthread_mutex_unlock(&data.check_lock);
+		ft_wait(philo, &data);
+		ft_free(&philo, &lock);
 		return (ft_printf(2, "pthread_create failed for monitor\n"), 1);
+	}
 	if (!ft_wait(philo, &data))
 		return (1);
 	pthread_join(manager_id, NULL);

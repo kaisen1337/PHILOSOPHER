@@ -33,6 +33,22 @@ int	ft_allocate(t_philo **philo, pthread_mutex_t **lock, int number)
 
 void	ft_free(t_philo **philo, pthread_mutex_t **lock)
 {
+	int		i;
+	t_data	*data;
+
+	if (*philo && *lock)
+	{
+		data = (*philo)->data;
+		i = 0;
+		while (i < data->num_of_philo)
+		{
+			pthread_mutex_destroy(&(*lock)[i]);
+			i++;
+		}
+		pthread_mutex_destroy(&data->print_lock);
+		pthread_mutex_destroy(&data->check_lock);
+		pthread_mutex_destroy(&data->meal_lock);
+	}
 	if (*philo)
 	{
 		free(*philo);

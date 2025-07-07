@@ -54,7 +54,15 @@ int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *lock)
 		philo[i].right_f = &lock[(i + 1) % data->num_of_philo];
 		if (pthread_create(&philo[i].thrd_id, NULL, day_of_philo,
 				&philo[i]) != 0)
+		{
+			data->stop = 1;
+			while (i > 0)
+			{
+				i--;
+				pthread_join(philo[i].thrd_id, NULL);
+			}
 			return ((ft_printf(2, "pthread_creat failed\n"), 0));
+		}
 		i++;
 	}
 	return (1);
