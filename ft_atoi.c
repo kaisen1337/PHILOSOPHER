@@ -18,29 +18,13 @@ void	ft_putchar(int fd, char c, int *counter)
 	(*counter)++;
 }
 
-static int	handle_overflow(int sign)
+static int	is_overflow(long result, int digit)
 {
-	if (sign == 1)
-		return (-1);
+	if (result > 214748364)
+		return (1);
+	if (result == 214748364 && digit > 7)
+		return (1);
 	return (0);
-}
-
-static int	check_overflow(long result, char digit, int sign)
-{
-	long	max_div;
-	long	max_mod;
-
-	max_div = 2147483647 / 10;
-	max_mod = 2147483647 % 10;
-	if (result > max_div)
-		return (handle_overflow(sign));
-	if (result == max_div && (digit - '0') > max_mod)
-	{
-		if (sign == -1 && (digit - '0') == max_mod + 1)
-			return (1);
-		return (handle_overflow(sign));
-	}
-	return (1);
 }
 
 int	ft_atoi(const char *str)
@@ -63,8 +47,12 @@ int	ft_atoi(const char *str)
 	}
 	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
 	{
-		if (check_overflow(result, str[i], sign) != 1)
-			return (check_overflow(result, str[i], sign));
+		if (is_overflow(result, str[i] - '0'))
+		{
+			if (sign == 1)
+				return (-1);
+			return (0);
+		}
 		result = result * 10 + (str[i++] - '0');
 	}
 	return (sign * result);
