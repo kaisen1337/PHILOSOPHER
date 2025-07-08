@@ -27,7 +27,7 @@ static int	is_overflow(long result, int digit)
 	return (0);
 }
 
-void	init_var(int *v1, long *v2, size_t *v3)
+static void	init_var(int *v1, long *v2, size_t *v3)
 {
 	*v1 = 1;
 	*v2 = 0;

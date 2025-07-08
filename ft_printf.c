@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	ft_putstr(int fd, char *str, int *counter)
+static void	ft_putstr(int fd, char *str, int *counter)
 {
 	if (!str)
 		str = "(null)";
@@ -23,7 +23,7 @@ void	ft_putstr(int fd, char *str, int *counter)
 	}
 }
 
-void	ft_putnbr(int fd, int nb, int *counter)
+static void	ft_putnbr(int fd, int nb, int *counter)
 {
 	long	n;
 
@@ -40,7 +40,7 @@ void	ft_putnbr(int fd, int nb, int *counter)
 	ft_putchar(fd, n % 10 + '0', counter);
 }
 
-void	ft_putnbr_long(int fd, long nb, int *counter)
+static void	ft_putnbr_long(int fd, long nb, int *counter)
 {
 	if (nb < 0)
 	{
@@ -54,7 +54,7 @@ void	ft_putnbr_long(int fd, long nb, int *counter)
 	ft_putchar(fd, nb % 10 + '0', counter);
 }
 
-void	format_specifier(int fd, va_list arguements, char specifier,
+static void	format_specifier(int fd, va_list arguements, char specifier,
 		int *counter)
 {
 	if (specifier == 'd' || specifier == 'i')

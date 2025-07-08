@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	ode_eating(t_philo *philo)
+static void	ode_eating(t_philo *philo)
 {
 	pthread_mutex_lock(philo->right_f);
 	print_message(philo, "has taken a fork");
@@ -28,7 +28,7 @@ void	ode_eating(t_philo *philo)
 	pthread_mutex_unlock(philo->left_f);
 }
 
-void	even_eating(t_philo *philo)
+static void	even_eating(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_f);
 	print_message(philo, "has taken a fork");

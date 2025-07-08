@@ -12,12 +12,12 @@
 
 #include "philo.h"
 
-int	is_arithmetic_operator(char c)
+static int	is_arithmetic_operator(char c)
 {
 	return (c == '+' || c == '-');
 }
 
-int	is_all_digit(char *str)
+static int	is_all_digit(char *str)
 {
 	int	i;
 

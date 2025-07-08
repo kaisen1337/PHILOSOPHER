@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-int	check_death(t_data *data)
+static int	check_death(t_data *data)
 {
 	t_philo	*philos;
 	double	df;
@@ -41,7 +41,7 @@ int	check_death(t_data *data)
 	return (0);
 }
 
-void	check_meals_helper(t_data *data)
+static void	check_meals_helper(t_data *data)
 {
 	pthread_mutex_lock(&data->check_lock);
 	data->stop = 1;
@@ -51,7 +51,7 @@ void	check_meals_helper(t_data *data)
 	pthread_mutex_unlock(&data->print_lock);
 }
 
-int	check_meals(t_data *data)
+static int	check_meals(t_data *data)
 {
 	t_philo	*philos;
 	int		i;

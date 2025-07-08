@@ -40,7 +40,7 @@ void	*day_of_philo(void *arg)
 	return (NULL);
 }
 
-int	manager(t_philo **philo, t_data *data, pthread_mutex_t **lock,
+static int	manager(t_philo **philo, t_data *data, pthread_mutex_t **lock,
 		pthread_t *manager_id)
 {
 	if (pthread_create(manager_id, NULL, ft_manager, data) != 0)
