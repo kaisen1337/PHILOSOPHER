@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:20:38 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/06/29 08:48:12 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/07/08 10:28:13 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,21 @@ void	*day_of_philo(void *arg)
 	return (NULL);
 }
 
+int	manager(t_philo **philo, t_data *data, pthread_mutex_t **lock,
+		pthread_t *manager_id)
+{
+	if (pthread_create(manager_id, NULL, ft_manager, data) != 0)
+	{
+		pthread_mutex_lock(&data->check_lock);
+		data->stop = 1;
+		pthread_mutex_unlock(&data->check_lock);
+		ft_wait(*philo, data);
+		ft_free(philo, lock);
+		return (ft_printf(2, "pthread_create failed for manager\n"), 0);
+	}
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	int				number_of_philo;
@@ -50,31 +65,17 @@ int	main(int ac, char **av)
 
 	philo = NULL;
 	lock = NULL;
-	if (!check_error(ac, av, &number_of_philo))
-		return (1);
-	if (!ft_allocate(&philo, &lock, number_of_philo))
+	if (!check_error(ac, av, &number_of_philo) || !ft_allocate(&philo, &lock,
+			number_of_philo))
 		return (1);
 	if (!ft_init(&data, lock, av))
-	{
-		ft_free(&philo, &lock);
-		return (1);
-	}
+		return ((ft_free(&philo, &lock), 1));
 	data.philo = philo;
 	data.start_time = get_current_time();
 	if (!ft_init_philo(philo, &data, lock))
-	{
-		ft_free(&philo, &lock);
+		return ((ft_free(&philo, &lock), 1));
+	if (!manager(&philo, &data, &lock, &manager_id))
 		return (1);
-	}
-	if (pthread_create(&manager_id, NULL, ft_manager, &data) != 0)
-	{
-		pthread_mutex_lock(&data.check_lock);
-		data.stop = 1;
-		pthread_mutex_unlock(&data.check_lock);
-		ft_wait(philo, &data);
-		ft_free(&philo, &lock);
-		return (ft_printf(2, "pthread_create failed for monitor\n"), 1);
-	}
 	if (!ft_wait(philo, &data))
 		return (1);
 	pthread_join(manager_id, NULL);

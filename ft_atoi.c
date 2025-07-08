@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:03:31 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/06/29 08:40:05 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/07/08 10:21:10 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,20 @@ static int	is_overflow(long result, int digit)
 	return (0);
 }
 
+void	init_var(int *v1, long *v2, size_t *v3)
+{
+	*v1 = 1;
+	*v2 = 0;
+	*v3 = 0;
+}
+
 int	ft_atoi(const char *str)
 {
 	long	result;
 	int		sign;
 	size_t	i;
 
-	i = 0;
-	sign = 1;
-	result = 0;
+	init_var(&sign, &result, &i);
 	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == 32))
 		i++;
 	if (str[i] == '+')

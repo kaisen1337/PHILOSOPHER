@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:44:20 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/07/02 08:23:23 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/07/08 10:35:59 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,11 @@ int	ft_init_philo(t_philo *philo, t_data *data, pthread_mutex_t *lock)
 		if (pthread_create(&philo[i].thrd_id, NULL, day_of_philo,
 				&philo[i]) != 0)
 		{
+			pthread_mutex_lock(&data->check_lock);
 			data->stop = 1;
+			pthread_mutex_unlock(&data->check_lock);
 			while (i > 0)
-			{
-				i--;
-				pthread_join(philo[i].thrd_id, NULL);
-			}
+				pthread_join(philo[i--].thrd_id, NULL);
 			return ((ft_printf(2, "pthread_creat failed\n"), 0));
 		}
 		i++;

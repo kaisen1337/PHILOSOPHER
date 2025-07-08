@@ -6,7 +6,7 @@
 /*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 11:54:06 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/07/02 08:23:23 by nkasimi          ###   ########.fr       */
+/*   Updated: 2025/07/08 10:22:52 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	check_meals(t_data *data)
 	return (0);
 }
 
-// Updated ft_manager function
 void	*ft_manager(void *arg)
 {
 	t_data	*data;

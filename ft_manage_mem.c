@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_manage_mem.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisen1337 <kaisen1337@student.42.fr>      +#+  +:+       +#+        */
+/*   By: nkasimi <nkasimi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 13:58:40 by nkasimi           #+#    #+#             */
-/*   Updated: 2025/06/28 05:26:41 by kaisen1337       ###   ########.fr       */
+/*   Updated: 2025/07/08 09:06:32 by nkasimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void	ft_free(t_philo **philo, pthread_mutex_t **lock)
 		data = (*philo)->data;
 		i = 0;
 		while (i < data->num_of_philo)
-		{
-			pthread_mutex_destroy(&(*lock)[i]);
-			i++;
-		}
+			pthread_mutex_destroy(&(*lock)[i++]);
 		pthread_mutex_destroy(&data->print_lock);
 		pthread_mutex_destroy(&data->check_lock);
 		pthread_mutex_destroy(&data->meal_lock);
